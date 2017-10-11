@@ -26,6 +26,17 @@ class HotelTableViewController: UITableViewController {
 		
 		tableView.estimatedRowHeight = 95
 		tableView.rowHeight = UITableViewAutomaticDimension
+		
+		// Register to Notification about content size change
+		NotificationCenter.default.addObserver(self, selector: #selector(onTextSizeChange(notification:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+	}
+	
+	@objc func onTextSizeChange(notification: Notification) {
+		tableView.reloadData()
+	}
+	
+	deinit {
+		NotificationCenter.default.removeObserver(self)
 	}
 	
 	// MARK: UITableViewDataSource and UITableViewDelegate
@@ -36,9 +47,17 @@ class HotelTableViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! HotelCell
+		
+		// configure cell
 		cell.nameLabel.text = hotels[indexPath.row].name
 		cell.addressLabel.text = hotels[indexPath.row].address
 		cell.descriptionLabel.text = hotels[indexPath.row].description
+		
+		// set font style with builtin dynamic text style
+		cell.nameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+		cell.addressLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+		cell.descriptionLabel.font = UIFont.preferredFont(forTextStyle: .body)
+		
 		return cell
 	}
 }
