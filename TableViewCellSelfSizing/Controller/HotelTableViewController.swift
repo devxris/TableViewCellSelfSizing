@@ -21,6 +21,13 @@ class HotelTableViewController: UITableViewController {
 		("Bardessono", "6526 Yount Street, Yountville, CA 94599", "With our LEED Platinum certification, Bardessono is a 100% non-smoking property, inside and outside. This includes a ban on electronic cigarettes, as well. While we love all our guests, we put the needs of the environment first."),
 		("Islington Hotel", "321 Davey Street, Hobart, Tasmania 7000, Australia", "Islington is a very special, small, luxe hotel in Hobart with a long history and a large delightful garden, affording unique and stunning views of Mount Wellington. Decorated with fine art and furnished with antiques, Islington appeals to those who desire the very best in life. Surrounded by personalised service, presented in an atmosphere of serenity, luxury and tranquility.")]
 	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		tableView.estimatedRowHeight = 95
+		tableView.rowHeight = UITableViewAutomaticDimension
+	}
+	
 	// MARK: UITableViewDataSource and UITableViewDelegate
 	
 	override func numberOfSections(in tableView: UITableView) -> Int { return 1 }
