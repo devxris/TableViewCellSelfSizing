@@ -53,11 +53,39 @@ class HotelTableViewController: UITableViewController {
 		cell.addressLabel.text = hotels[indexPath.row].address
 		cell.descriptionLabel.text = hotels[indexPath.row].description
 		
-		// set font style with builtin dynamic text style
+		/* set font style with builtin dynamic text style
 		cell.nameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
 		cell.addressLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
 		cell.descriptionLabel.font = UIFont.preferredFont(forTextStyle: .body)
+		*/
+		
+		// set font style with custom dynamic text style
+		cell.nameLabel.font = UIFont.preferredCustomFont(forTextStyle: .headline)
+		cell.addressLabel.font = UIFont.preferredCustomFont(forTextStyle: .subheadline)
+		cell.descriptionLabel.font = UIFont.preferredCustomFont(forTextStyle: .body)
 		
 		return cell
+	}
+}
+
+extension UIFont {
+	class func preferredCustomFont(forTextStyle textStyle: UIFontTextStyle) -> UIFont {
+		
+		let fontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: textStyle)
+		let fontSize = fontDescriptor.pointSize
+		
+		var customFont: UIFont
+		
+		switch textStyle {
+		case .headline:
+			customFont = UIFont(name: "AvenirNext-Medium", size: fontSize)!
+		case .subheadline:
+			customFont = UIFont(name: "Avenir-Medium", size: fontSize)!
+		default :
+			// Default font for body style
+			customFont = UIFont(name: "Avenir-Light", size: fontSize)!
+		}
+		
+		return customFont
 	}
 }
